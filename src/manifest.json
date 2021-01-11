@@ -2,18 +2,18 @@
   "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
   "icon": "icon.png",
   "author": "ghostzhang",
-  "description": "自动为文本内容排序",
+  "description": "自动为文本层排序",
   "commands": [
     {
-      "name": "my-command",
-      "identifier": "listtext.my-command-identifier",
-      "script": "./my-command.js"
+      "name": "ListText",
+      "identifier": "listtext.listtext-identifier",
+      "script": "./listtext.js"
     }
   ],
   "menu": {
     "title": "ListText",
     "items": [
-      "listtext.my-command-identifier"
+      "listtext.listtext-identifier"
     ]
   }
 }

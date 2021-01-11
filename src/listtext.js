@@ -20,19 +20,23 @@ export default function () {
 
     newLayers.forEach(function (layer, i) {
       //console.log(i + 1 + '. ' + layer.name + ' type: ' + layer.type);
-      //console.log(layer)
-      if (layer.type === 'Text') {
-        layer.text = String(j++);
+      // console.log(layer)
+      let arr = []
+
+      switch (layer.type) {
+        case 'Text':
+          layer.text = String(j++)
+          break
+        case 'SymbolInstance':
+          //layer.overrides
+          arr = layer.overrides
+          arr.forEach(function (layer, i) {
+            layer.value = '' + j++
+          });
+          break
       }
-      if (layer.type === 'SymbolInstance') {
-        //layer.overrides
-        let override = layer.overrides.reverse();
-        let arrayLength = override.length;
-        for (let i = 0; i < arrayLength; i++) {
-          override[i].value = j++;
-        }
-      }
+
       doc.showMessage("Done 👍🏻")
-    });
+    })
   }
 }
