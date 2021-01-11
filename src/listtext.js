@@ -35,7 +35,7 @@ export default function () {
           });
           break
         case 'Group':
-          arr = layer.layers
+          arr = Array.from(layer.layers).reverse()
           console.log(j)
           arr.forEach(function (layer, i) {
             layer.text = '' + j++
