@@ -34,6 +34,14 @@ export default function () {
             layer.value = '' + j++
           });
           break
+        case 'Group':
+          arr = layer.layers
+          console.log(j)
+          arr.forEach(function (layer, i) {
+            layer.text = '' + j++
+            console.log(layer.text)
+          })
+          break
       }
 
       doc.showMessage("Done 👍🏻")
