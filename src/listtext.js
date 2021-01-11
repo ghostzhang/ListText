@@ -16,6 +16,9 @@ export default function () {
     let string = UI.getStringFromUser('请输入起始值，仅支持正整数', '1');
     //console.log('Selected layers:')
     let j = isNaN(parseInt(string)) ? 1 : parseInt(string);
+    // 按图层从上往下的顺序填充
+    // TODO: 按视觉顺序填充
+    // TODO: 倒序填充
     let newLayers = selectedLayers.layers.reverse();
 
     newLayers.forEach(function (layer, i) {
@@ -29,22 +32,41 @@ export default function () {
           break
         case 'SymbolInstance':
           //layer.overrides
-          arr = layer.overrides
-          arr.forEach(function (layer, i) {
-            layer.value = '' + j++
-          });
+          j = inSymbolInstance(layer, j++)
           break
         case 'Group':
-          arr = Array.from(layer.layers).reverse()
-          console.log(j)
-          arr.forEach(function (layer, i) {
-            layer.text = '' + j++
-            console.log(layer.text)
-          })
+          j = inGroup(layer, j++)
           break
       }
 
-      doc.showMessage("Done 👍🏻")
     })
   }
+}
+function inGroup(layer, j) {
+  arr = Array.from(layer.layers).reverse()
+  arr.forEach(function (layer, i) {
+    switch (layer.type) {
+      case 'Text':
+        layer.text = String(j++)
+        break
+      case 'SymbolInstance':
+        //layer.overrides
+        j = inSymbolInstance(layer, j++)
+        break
+      case 'Group':
+        j = inGroup(layer, j++)
+        break
+    }
+  })
+  return j
+}
+
+function inSymbolInstance(layer, j) {
+  let arr = layer.overrides
+  arr.forEach(function (layer, i) {
+    if (!layer.symbolOverride) {
+      layer.value = '' + j++
+    }
+  });
+  return j
 }
