@@ -27,10 +27,10 @@ export default function () {
 
     newLayers.forEach(function (newLayer, i) {
       const layer = newLayer[4]
-      if (newLayer[3] == "Text") {
+      if (newLayer[3] == "Text" && !layer.hidden) {
         layer.text = String(j++)
       }
-      if (newLayer[3] == "SymbolInstance") {
+      if (newLayer[3] == "SymbolInstance" && !layer.affectedLayer.hidden) {
         layer.value = String(j++)
       }
 
